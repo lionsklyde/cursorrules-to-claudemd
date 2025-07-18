@@ -6,7 +6,7 @@ Convert Cursor IDE rules (`.mdc` files) to Claude AI markdown format with intell
 
 > **Note**: If the video doesn't play, download `assets/demo.mp4` to view the demonstration.
 
-https://github.com/user-attachments/assets/demo.mp4
+https://github.com/user-attachments/assets/407cd34e-c4c0-4a1b-981d-817b85decf20
 
 ## Installation
 
