@@ -5,6 +5,7 @@ import { FileExplorerService } from '../application/services/FileExplorerService
 import { FileConverterService } from '../application/services/FileConverterService.js';
 import { MetadataParserService } from '../application/services/MetadataParserService.js';
 import { AdvancedRootFileGeneratorService } from '../application/services/AdvancedRootFileGeneratorService.js';
+import { ClaudeMdService } from '../application/services/ClaudeMdService.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -29,6 +30,7 @@ program
       const metadataParser = new MetadataParserService();
       const fileConverter = new FileConverterService();
       const rootFileGenerator = new AdvancedRootFileGeneratorService();
+      const claudeMdService = new ClaudeMdService();
       
       // Find root .cursor directory
       const rootCursorDir = await fileExplorer.findRootCursorDirectory(rootPath);
@@ -50,6 +52,7 @@ program
           const parsedRules = metadataParser.parseFiles(rootFiles);
           await fileConverter.convertParsedFilesWithSeparateDirectories(parsedRules, rootPath, rootCursorDir);
           await rootFileGenerator.generateRootFileForDirectory(parsedRules, rootCursorDir, join(rootPath, 'c2c-rules'));
+          await claudeMdService.updateClaudeMdFile(rootPath);
         }
       }
       
@@ -65,6 +68,7 @@ program
           
           await fileConverter.convertParsedFilesWithSeparateDirectories(parsedRules, rootPath, cursorDir);
           await rootFileGenerator.generateRootFileForDirectory(parsedRules, cursorDir, outputDir);
+          await claudeMdService.updateClaudeMdFile(cursorParentDir);
         }
       }
       
