@@ -1,6 +1,9 @@
 {
   "name": "@vooster/c2c",
   "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Convert Cursor IDE rules to Claude AI markdown format",
   "main": "dist/index.js",
   "bin": {
@@ -13,7 +16,9 @@
     "start": "node dist/presentation/cli.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "prepublish:npm": "pnpm build && pnpm test",
+    "publish:npm": "pnpm npm publish --access public"
   },
   "keywords": [
     "cursor",
@@ -26,9 +31,6 @@
   "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
