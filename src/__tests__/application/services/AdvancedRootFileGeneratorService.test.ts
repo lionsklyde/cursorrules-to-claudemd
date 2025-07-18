@@ -182,7 +182,7 @@ describe("AdvancedRootFileGeneratorService", () => {
       const rootPath = path.join(testDir, "c2c-rules", "_root.md");
       const content = await fs.readFile(rootPath, "utf-8");
 
-      expect(content).toContain("# Cursor Rules Collection");
+      expect(content).toContain("# Rules Collection");
       expect(content).not.toContain("always apply below rules");
       expect(content).not.toContain("apply below rules if requirement matches");
       expect(content).not.toContain(

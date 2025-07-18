@@ -30,7 +30,7 @@ export class AdvancedRootFileGeneratorService {
         r.metadata.globs
     );
 
-    let content = "# Cursor Rules Collection\n\n";
+    let content = "# Rules Collection\n\n";
 
     // Always Apply section
     if (alwaysApplyRules.length > 0) {
