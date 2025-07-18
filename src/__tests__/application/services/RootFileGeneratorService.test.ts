@@ -9,7 +9,7 @@ describe("RootFileGeneratorService", () => {
   let service: RootFileGeneratorService;
 
   beforeEach(async () => {
-    testDir = path.join(tmpdir(), `c2c-test-${Date.now()}`);
+    testDir = path.join(tmpdir(), `c2c-test-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`);
     await fs.mkdir(testDir, { recursive: true });
     service = new RootFileGeneratorService();
   });
