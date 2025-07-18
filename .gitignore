@@ -1,0 +1,12 @@
+node_modules
+dist/
+c2c-rules/
+coverage/
+.DS_Store
+*.log
+.env
+.env.local
+.vscode/
+.idea/
+
+.claude

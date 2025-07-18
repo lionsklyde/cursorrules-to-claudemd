@@ -1,0 +1,42 @@
+{
+  "name": "@vooster/c2c",
+  "version": "1.0.0",
+  "description": "Convert Cursor IDE rules to Claude AI markdown format",
+  "main": "dist/index.js",
+  "bin": {
+    "c2c": "./dist/presentation/cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/presentation/cli.ts",
+    "start": "node dist/presentation/cli.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "cursor",
+    "claude",
+    "ai",
+    "markdown",
+    "converter"
+  ],
+  "author": "Vooster",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.14",
+    "commander": "^14.0.0",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
