@@ -3,7 +3,8 @@
 import { Command } from 'commander';
 import { FileExplorerService } from '../application/services/FileExplorerService.js';
 import { FileConverterService } from '../application/services/FileConverterService.js';
-import { RootFileGeneratorService } from '../application/services/RootFileGeneratorService.js';
+import { MetadataParserService } from '../application/services/MetadataParserService.js';
+import { AdvancedRootFileGeneratorService } from '../application/services/AdvancedRootFileGeneratorService.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -25,8 +26,9 @@ program
       
       // Initialize services
       const fileExplorer = new FileExplorerService();
+      const metadataParser = new MetadataParserService();
       const fileConverter = new FileConverterService();
-      const rootFileGenerator = new RootFileGeneratorService();
+      const rootFileGenerator = new AdvancedRootFileGeneratorService();
       
       // Find .mdc files
       const files = await fileExplorer.findMdcFiles(rootPath);
@@ -36,11 +38,14 @@ program
         return;
       }
       
-      // Convert files
-      await fileConverter.convertFiles(files, rootPath);
+      // Parse metadata from files
+      const parsedRules = metadataParser.parseFiles(files);
       
-      // Generate root file
-      await rootFileGenerator.generateRootFile(files, rootPath);
+      // Convert files (with metadata stripped)
+      await fileConverter.convertParsedFiles(parsedRules, rootPath);
+      
+      // Generate advanced root file
+      await rootFileGenerator.generateRootFile(parsedRules, rootPath);
       
       console.log('\nConversion completed successfully!');
     } catch (error) {

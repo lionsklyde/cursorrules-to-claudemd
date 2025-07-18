@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.1.0
     devDependencies:
       '@types/jest':
         specifier: ^30.0.0
@@ -520,6 +527,9 @@ packages:
   '@types/jest@30.0.0':
     resolution: {integrity: sha512-XTYugzhuwqWjws0CVz8QpM36+T+Dz5mTEBKhNs/esGLnCIlGdRy+Dq78NRjd7ls7r8BC8ZRMOrKlkO1hU0JOwA==, tarball: https://registry.npmjs.org/@types/jest/-/jest-30.0.0.tgz}
 
+  '@types/js-yaml@4.0.9':
+    resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==, tarball: https://registry.npmjs.org/@types/js-yaml/-/js-yaml-4.0.9.tgz}
+
   '@types/node@24.0.14':
     resolution: {integrity: sha512-4zXMWD91vBLGRtHK3YbIoFMia+1nqEz72coM42C5ETjnNCa/heoj7NT1G67iAfOqMmcfhuCZ4uNpyz8EjlAejw==, tarball: https://registry.npmjs.org/@types/node/-/node-24.0.14.tgz}
 
@@ -660,6 +670,9 @@ packages:
 
   argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==, tarball: https://registry.npmjs.org/argparse/-/argparse-1.0.10.tgz}
+
+  argparse@2.0.1:
+    resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==, tarball: https://registry.npmjs.org/argparse/-/argparse-2.0.1.tgz}
 
   async@3.2.6:
     resolution: {integrity: sha512-htCUDlxyyCLMgaM3xXg0C0LW2xqfuQ6p05pCEIsXuyQ+a1koYKTuBMzRNwmybfLgvJDMd0r1LTn4+E0Ti6C2AA==, tarball: https://registry.npmjs.org/async/-/async-3.2.6.tgz}
@@ -1127,6 +1140,10 @@ packages:
 
   js-yaml@3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==, tarball: https://registry.npmjs.org/js-yaml/-/js-yaml-3.14.1.tgz}
+    hasBin: true
+
+  js-yaml@4.1.0:
+    resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==, tarball: https://registry.npmjs.org/js-yaml/-/js-yaml-4.1.0.tgz}
     hasBin: true
 
   jsesc@3.1.0:
@@ -2085,6 +2102,8 @@ snapshots:
       expect: 30.0.4
       pretty-format: 30.0.2
 
+  '@types/js-yaml@4.0.9': {}
+
   '@types/node@24.0.14':
     dependencies:
       undici-types: 7.8.0
@@ -2182,6 +2201,8 @@ snapshots:
   argparse@1.0.10:
     dependencies:
       sprintf-js: 1.0.3
+
+  argparse@2.0.1: {}
 
   async@3.2.6: {}
 
@@ -2858,6 +2879,10 @@ snapshots:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
+
+  js-yaml@4.1.0:
+    dependencies:
+      argparse: 2.0.1
 
   jsesc@3.1.0: {}
 
