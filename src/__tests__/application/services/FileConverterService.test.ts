@@ -118,4 +118,86 @@ describe('FileConverterService', () => {
       expect(stats.isDirectory()).toBe(true);
     });
   });
+
+  describe('convertFilesWithSeparateDirectories', () => {
+    it('should convert root .cursor files to root c2c-rules directory', async () => {
+      // Arrange
+      const files: FileInfo[] = [
+        {
+          originalPath: path.join(testDir, '.cursor', 'root.mdc'),
+          relativePath: path.join('.cursor', 'root.mdc'),
+          fileName: 'root',
+          content: 'Root content'
+        }
+      ];
+
+      // Act
+      const outputPaths = await service.convertFilesWithSeparateDirectories(
+        files, 
+        testDir, 
+        path.join(testDir, '.cursor')
+      );
+
+      // Assert
+      const expectedPath = path.join(testDir, 'c2c-rules', 'root.md');
+      expect(outputPaths[0]).toBe(expectedPath);
+      
+      const content = await fs.readFile(expectedPath, 'utf-8');
+      expect(content).toBe('Root content');
+    });
+
+    it('should convert sub .cursor files to their respective c2c-rules directories', async () => {
+      // Arrange
+      const subDir = path.join(testDir, 'project1');
+      const files: FileInfo[] = [
+        {
+          originalPath: path.join(subDir, '.cursor', 'project.mdc'),
+          relativePath: path.join('project1', '.cursor', 'project.mdc'),
+          fileName: 'project',
+          content: 'Project content'
+        }
+      ];
+
+      // Act
+      const outputPaths = await service.convertFilesWithSeparateDirectories(
+        files,
+        testDir,
+        path.join(subDir, '.cursor')
+      );
+
+      // Assert
+      const expectedPath = path.join(subDir, 'c2c-rules', 'project.md');
+      expect(outputPaths[0]).toBe(expectedPath);
+      
+      const content = await fs.readFile(expectedPath, 'utf-8');
+      expect(content).toBe('Project content');
+    });
+
+    it('should handle nested .cursor directories with multiple levels', async () => {
+      // Arrange
+      const nestedDir = path.join(testDir, 'a', 'b', 'c');
+      const files: FileInfo[] = [
+        {
+          originalPath: path.join(nestedDir, '.cursor', 'sub', 'nested.mdc'),
+          relativePath: path.join('a', 'b', 'c', '.cursor', 'sub', 'nested.mdc'),
+          fileName: 'nested',
+          content: 'Nested content'
+        }
+      ];
+
+      // Act
+      const outputPaths = await service.convertFilesWithSeparateDirectories(
+        files,
+        testDir,
+        path.join(nestedDir, '.cursor')
+      );
+
+      // Assert
+      const expectedPath = path.join(nestedDir, 'c2c-rules', 'sub', 'nested.md');
+      expect(outputPaths[0]).toBe(expectedPath);
+      
+      const content = await fs.readFile(expectedPath, 'utf-8');
+      expect(content).toBe('Nested content');
+    });
+  });
 });

@@ -30,22 +30,43 @@ program
       const fileConverter = new FileConverterService();
       const rootFileGenerator = new AdvancedRootFileGeneratorService();
       
-      // Find .mdc files
-      const files = await fileExplorer.findMdcFiles(rootPath);
+      // Find root .cursor directory
+      const rootCursorDir = await fileExplorer.findRootCursorDirectory(rootPath);
       
-      if (files.length === 0) {
-        console.log('No .mdc files found in .cursor directories.');
+      // Find subdirectory .cursor directories with .mdc files
+      const subCursorDirs = await fileExplorer.findSubCursorDirectories(rootPath);
+      
+      if (!rootCursorDir && subCursorDirs.length === 0) {
+        console.log('No .cursor directories with .mdc files found.');
         return;
       }
       
-      // Parse metadata from files
-      const parsedRules = metadataParser.parseFiles(files);
+      // Process root .cursor directory if it exists
+      if (rootCursorDir) {
+        console.log('Processing root .cursor directory...');
+        const rootFiles = await fileExplorer.findMdcFilesInDirectory(rootCursorDir, rootPath);
+        
+        if (rootFiles.length > 0) {
+          const parsedRules = metadataParser.parseFiles(rootFiles);
+          await fileConverter.convertParsedFilesWithSeparateDirectories(parsedRules, rootPath, rootCursorDir);
+          await rootFileGenerator.generateRootFileForDirectory(parsedRules, rootCursorDir, join(rootPath, 'c2c-rules'));
+        }
+      }
       
-      // Convert files (with metadata stripped)
-      await fileConverter.convertParsedFiles(parsedRules, rootPath);
-      
-      // Generate advanced root file
-      await rootFileGenerator.generateRootFile(parsedRules, rootPath);
+      // Process each subdirectory .cursor directory
+      for (const cursorDir of subCursorDirs) {
+        console.log(`Processing ${cursorDir}...`);
+        const files = await fileExplorer.findMdcFilesInDirectory(cursorDir, rootPath);
+        
+        if (files.length > 0) {
+          const parsedRules = metadataParser.parseFiles(files);
+          const cursorParentDir = dirname(cursorDir);
+          const outputDir = join(cursorParentDir, 'c2c-rules');
+          
+          await fileConverter.convertParsedFilesWithSeparateDirectories(parsedRules, rootPath, cursorDir);
+          await rootFileGenerator.generateRootFileForDirectory(parsedRules, cursorDir, outputDir);
+        }
+      }
       
       console.log('\nConversion completed successfully!');
     } catch (error) {

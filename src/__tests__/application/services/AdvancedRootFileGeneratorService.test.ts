@@ -190,4 +190,78 @@ describe("AdvancedRootFileGeneratorService", () => {
       );
     });
   });
+
+  describe("generateRootFileForDirectory", () => {
+    it("should generate root file for a specific cursor directory", async () => {
+      // Arrange
+      const rules: ParsedCursorRule[] = [
+        {
+          metadata: { alwaysApply: true },
+          content: "Project specific rule",
+          fileName: "project-rule",
+          relativePath: "project/.cursor/project-rule.mdc",
+        },
+      ];
+      const cursorDir = path.join(testDir, "project", ".cursor");
+      const outputDir = path.join(testDir, "project", "c2c-rules");
+
+      // Act
+      await service.generateRootFileForDirectory(rules, cursorDir, outputDir);
+
+      // Assert
+      const rootPath = path.join(outputDir, "_root.md");
+      const content = await fs.readFile(rootPath, "utf-8");
+
+      expect(content).toContain("@project-rule.md");
+      expect(content).toContain("# Rules Collection");
+    });
+
+    it("should generate root file for root cursor directory", async () => {
+      // Arrange
+      const rules: ParsedCursorRule[] = [
+        {
+          metadata: { description: "Global rule for all projects" },
+          content: "Global rule content",
+          fileName: "global-rule",
+          relativePath: ".cursor/global-rule.mdc",
+        },
+      ];
+      const cursorDir = path.join(testDir, ".cursor");
+      const outputDir = path.join(testDir, "c2c-rules");
+
+      // Act
+      await service.generateRootFileForDirectory(rules, cursorDir, outputDir);
+
+      // Assert
+      const rootPath = path.join(outputDir, "_root.md");
+      const content = await fs.readFile(rootPath, "utf-8");
+
+      expect(content).toContain("global-rule.md");
+      expect(content).toContain("Global rule for all projects");
+    });
+
+    it("should generate root file with proper relative paths for nested directories", async () => {
+      // Arrange
+      const rules: ParsedCursorRule[] = [
+        {
+          metadata: { globs: "**/*.tsx" },
+          content: "React component rules",
+          fileName: "react-rules",
+          relativePath: "frontend/components/.cursor/sub/react-rules.mdc",
+        },
+      ];
+      const cursorDir = path.join(testDir, "frontend", "components", ".cursor");
+      const outputDir = path.join(testDir, "frontend", "components", "c2c-rules");
+
+      // Act
+      await service.generateRootFileForDirectory(rules, cursorDir, outputDir);
+
+      // Assert
+      const rootPath = path.join(outputDir, "_root.md");
+      const content = await fs.readFile(rootPath, "utf-8");
+
+      expect(content).toContain("sub/react-rules.md");
+      expect(content).toContain("**/*.tsx");
+    });
+  });
 });

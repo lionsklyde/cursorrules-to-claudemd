@@ -86,4 +86,108 @@ describe('FileExplorerService', () => {
       });
     });
   });
+
+  describe('findRootCursorDirectory', () => {
+    it('should find only root level .cursor directory', async () => {
+      // Arrange
+      const rootCursorDir = path.join(testDir, '.cursor');
+      const subCursorDir = path.join(testDir, 'project', '.cursor');
+      
+      await fs.mkdir(rootCursorDir, { recursive: true });
+      await fs.mkdir(subCursorDir, { recursive: true });
+      
+      await fs.writeFile(path.join(rootCursorDir, 'root.mdc'), 'Root content');
+      await fs.writeFile(path.join(subCursorDir, 'sub.mdc'), 'Sub content');
+
+      // Act
+      const result = await service.findRootCursorDirectory(testDir);
+
+      // Assert
+      expect(result).toBeDefined();
+      expect(result).toBe(rootCursorDir);
+    });
+
+    it('should return null when no root .cursor directory exists', async () => {
+      // Arrange
+      const subCursorDir = path.join(testDir, 'project', '.cursor');
+      await fs.mkdir(subCursorDir, { recursive: true });
+
+      // Act
+      const result = await service.findRootCursorDirectory(testDir);
+
+      // Assert
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('findSubCursorDirectories', () => {
+    it('should find only subdirectory .cursor directories with .mdc files', async () => {
+      // Arrange
+      const rootCursorDir = path.join(testDir, '.cursor');
+      const subCursorDir1 = path.join(testDir, 'project1', '.cursor');
+      const subCursorDir2 = path.join(testDir, 'project2', '.cursor');
+      const subCursorDir3 = path.join(testDir, 'project3', '.cursor'); // No .mdc files
+      
+      await fs.mkdir(rootCursorDir, { recursive: true });
+      await fs.mkdir(subCursorDir1, { recursive: true });
+      await fs.mkdir(subCursorDir2, { recursive: true });
+      await fs.mkdir(subCursorDir3, { recursive: true });
+      
+      await fs.writeFile(path.join(rootCursorDir, 'root.mdc'), 'Root content');
+      await fs.writeFile(path.join(subCursorDir1, 'sub1.mdc'), 'Sub1 content');
+      await fs.writeFile(path.join(subCursorDir2, 'sub2.mdc'), 'Sub2 content');
+      await fs.writeFile(path.join(subCursorDir3, 'readme.txt'), 'Not mdc');
+
+      // Act
+      const result = await service.findSubCursorDirectories(testDir);
+
+      // Assert
+      expect(result).toHaveLength(2);
+      expect(result).toContain(subCursorDir1);
+      expect(result).toContain(subCursorDir2);
+      expect(result).not.toContain(rootCursorDir);
+      expect(result).not.toContain(subCursorDir3);
+    });
+
+    it('should find nested .cursor directories with .mdc files', async () => {
+      // Arrange
+      const nestedCursorDir = path.join(testDir, 'a', 'b', 'c', '.cursor');
+      await fs.mkdir(nestedCursorDir, { recursive: true });
+      await fs.writeFile(path.join(nestedCursorDir, 'nested.mdc'), 'Nested content');
+
+      // Act
+      const result = await service.findSubCursorDirectories(testDir);
+
+      // Assert
+      expect(result).toHaveLength(1);
+      expect(result[0]).toBe(nestedCursorDir);
+    });
+  });
+
+  describe('findMdcFilesInDirectory', () => {
+    it('should find mdc files in a specific cursor directory', async () => {
+      // Arrange
+      const cursorDir = path.join(testDir, 'project', '.cursor');
+      await fs.mkdir(cursorDir, { recursive: true });
+      await fs.writeFile(path.join(cursorDir, 'file1.mdc'), 'Content 1');
+      await fs.writeFile(path.join(cursorDir, 'file2.mdc'), 'Content 2');
+      await fs.writeFile(path.join(cursorDir, 'other.txt'), 'Not mdc');
+
+      // Act
+      const result = await service.findMdcFilesInDirectory(cursorDir, testDir);
+
+      // Assert
+      expect(result).toHaveLength(2);
+      expect(result[0]).toMatchObject({
+        fileName: 'file1',
+        content: 'Content 1',
+        relativePath: path.join('project', '.cursor', 'file1.mdc')
+      });
+      expect(result[1]).toMatchObject({
+        fileName: 'file2',
+        content: 'Content 2',
+        relativePath: path.join('project', '.cursor', 'file2.mdc')
+      });
+    });
+  });
 });
